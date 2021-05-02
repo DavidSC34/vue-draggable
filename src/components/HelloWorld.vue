@@ -1,15 +1,29 @@
 <template>
-  <div class="hello">
+  <div class="container">
      <h1>vUE drAGAGABLE</h1>
-     <button @click="ordenarOriginal" >Reordenar</button>
+     <button @click="ordenarOriginal" class="btn btn-success" >Reordenar</button>
+     <div class="row mt-5">
+        <div class="col-6 ">
+              <draggable v-model="lista" ghost-class="linea" group="lenguajes" @end="ejecutarAccion">
+                  <transition-group type="transition" name="flip">
+                      <div class="ordenable" v-for="item in lista " :key="item.id">
+                          {{item.id}} {{item.nombre}}
+                      </div>
+                  </transition-group>
+              </draggable>
+        </div>
+        <div class="col-6">
+             <draggable v-model="lista2" ghost-class="linea" group="lenguajes" >
+                  <transition-group type="transition" name="flip">
+                      <div class="ordenable" v-for="item in lista2 " :key="item.id">
+                          {{item.id}} {{item.nombre}}
+                      </div>
+                  </transition-group>
+              </draggable>
+        </div>
+     </div>
      
-      <draggable v-model="lista" ghost-class="linea" >
-          <transition-group type="transition" name="flip">
-              <div class="ordenable" v-for="item in lista " :key="item.id">
-                  {{item.id}} {{item.nombre}}
-              </div>
-          </transition-group>
-      </draggable>
+    
 
 
   </div>
@@ -32,6 +46,10 @@ export default {
         {nombre:'KOTLIN',id:5},
         {nombre:'PYTHON',id:6},
         {nombre:'JAVASCRIPT',id:7}
+        ],
+        lista2:[
+        {nombre:'LARAVEL',id:8}
+        
         ]
     }
   },
@@ -40,6 +58,12 @@ export default {
           this.lista = this.lista.sort((uno, dos)=>{
                 return uno.id - dos.id;
           });
+          this.lista2 = this.lista2.sort((uno, dos)=>{
+                return uno.id - dos.id;
+          });
+    },
+    ejecutarAccion(){
+      alert('Moviste un item');
     }
   }
   
