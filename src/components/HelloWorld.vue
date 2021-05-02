@@ -23,8 +23,40 @@
         </div>
      </div>
      
-    
+    <h1>Reordenar filas</h1>
 
+    <table class="table table-stripped">
+        <thead class="thead-dark">
+            <th>id</th>
+            <th>nombre</th>
+        </thead>
+        <draggable v-model="lista" tag="tbody">
+          <tr v-for="item in lista" :key="item.id">
+              <td>{{item.id}}</td>
+              <td>{{item.nombre}}</td>
+          </tr>
+        </draggable>
+    </table>
+
+    <h1>Reordenar columnas</h1>
+
+    <table class="table table-stripped">
+        <thead class="thead-dark">
+          <draggable v-model="cabeceras" tag="tr">
+              <th v-for="cabecera in cabeceras"  :key="cabecera">
+                  {{cabecera}}
+              </th>
+          </draggable>
+        </thead>
+          
+        <tbody>
+            <tr v-for="item in lista" :key="item.id">
+              <td v-for="cabecera in cabeceras" :key="cabecera">
+                {{item[cabecera]}}
+              </td>
+            </tr>
+        </tbody>
+    </table>
 
   </div>
 </template>
@@ -48,9 +80,8 @@ export default {
         {nombre:'JAVASCRIPT',id:7}
         ],
         lista2:[
-        {nombre:'LARAVEL',id:8}
-        
-        ]
+        {nombre:'LARAVEL',id:8}],
+        cabeceras:['id','nombre','apellido','direccion']
     }
   },
   methods:{
